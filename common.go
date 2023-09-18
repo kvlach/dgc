@@ -7,44 +7,44 @@ import (
 )
 
 type Client struct {
-	DG *dg.Session
+	Session *dg.Session
 }
 
 // Member returns a guild's member based on the specific guild and user IDs.
 // Tries to use the local cache, if that fails, makes an API call.
 func (c *Client) Member(guildID, userID string) (*dg.Member, error) {
-	if mem, err := c.DG.State.Member(guildID, userID); err == nil {
+	if mem, err := c.Session.State.Member(guildID, userID); err == nil {
 		return mem, nil
 	}
-	return c.DG.GuildMember(guildID, userID)
+	return c.Session.GuildMember(guildID, userID)
 }
 
 // Channel returns a channel based on the specific channel ID.
 // Tries to use the local cache, if that fails, makes an API call.
 func (c *Client) Channel(channelID string) (*dg.Channel, error) {
-	if ch, err := c.DG.State.Channel(channelID); err == nil {
+	if ch, err := c.Session.State.Channel(channelID); err == nil {
 		return ch, nil
 	}
-	return c.DG.Channel(channelID)
+	return c.Session.Channel(channelID)
 }
 
 // Guild returns a guild based on the specific guild ID.
 // Tries to use the local cache, if that fails, makes an API call.
 func (c *Client) Guild(guildID string) (*dg.Guild, error) {
-	if g, err := c.DG.State.Guild(guildID); err == nil {
+	if g, err := c.Session.State.Guild(guildID); err == nil {
 		return g, nil
 	}
-	return c.DG.Guild(guildID)
+	return c.Session.Guild(guildID)
 }
 
 // Role returns a role based on the specific guild and role IDs.
 // Tries to use the local cache, if that fails, makes an API call.
 func (c *Client) Role(guildID, roleID string) (*dg.Role, error) {
-	if r, err := c.DG.State.Role(guildID, roleID); err == nil {
+	if r, err := c.Session.State.Role(guildID, roleID); err == nil {
 		return r, nil
 	}
 
-	rs, err := c.DG.GuildRoles(guildID)
+	rs, err := c.Session.GuildRoles(guildID)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (c *Client) MemberAllowed(guildID, userID string, perms int64) (bool, error
 // VoiceState returns a voice state by guild and user ID.
 // Tries to use the local cache, if that fails, makes an API call.
 func (c *Client) VoiceState(guildID, userID string) (*dg.VoiceState, error) {
-	if vs, err := c.DG.State.VoiceState(guildID, userID); err == nil {
+	if vs, err := c.Session.State.VoiceState(guildID, userID); err == nil {
 		return vs, nil
 	}
 
@@ -125,5 +125,5 @@ func (c *Client) VoiceJoin(guildID, userID string) (*dg.VoiceConnection, error) 
 	if err != nil {
 		return nil, err
 	}
-	return c.DG.ChannelVoiceJoin(vs.GuildID, vs.ChannelID, false, true)
+	return c.Session.ChannelVoiceJoin(vs.GuildID, vs.ChannelID, false, true)
 }
