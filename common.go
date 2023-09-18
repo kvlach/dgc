@@ -10,6 +10,13 @@ type Client struct {
 	Session *dg.Session
 }
 
+// NewClient creates and initializes a new client using s as its session.
+func NewClient(s *dg.Session) *Client {
+	return &Client{
+		Session: s,
+	}
+}
+
 // Member returns a guild's member based on the specific guild and user IDs.
 // Tries to use the local cache, if that fails, makes an API call.
 func (c *Client) Member(guildID, userID string) (*dg.Member, error) {
