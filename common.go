@@ -64,10 +64,10 @@ func (c *Client) Role(guildID, roleID string) (*dg.Role, error) {
 }
 
 // MemberAllowed returns true iff:
-// - guildID is empty (aka a DM)
-// - all the user's roles, combined as one, have all permissions in the perms bitfield
-// - any of the user's roles has the administrator permission
-// - the user is the owner of the guild
+//   - guildID is empty (aka a DM)
+//   - all the user's roles, combined as one, have all permissions in the perms bitfield
+//   - any of the user's roles has the administrator permission
+//   - the user is the owner of the guild
 func (c *Client) MemberAllowed(guildID, userID string, perms int64) (bool, error) {
 	if guildID == "" {
 		return true, nil
